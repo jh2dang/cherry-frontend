@@ -6,25 +6,22 @@ import axios from 'axios'
 
 function App() {
   const baseURL = "http://ec2-3-27-168-60.ap-southeast-2.compute.amazonaws.com:8000"
+  // const baseURL = "http://3.27.168.60:8000"
   const [count, setCount] = useState(0)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
 
   const signUp = async () => {
-    console.log("클릭")
-    console.log(name)
-    console.log(email)
     try {
       // todo: 환경변수 사용
       const response = await axios.post(baseURL+"/users", {
-      // const response = await axios.post("http://3.27.168.60:8000/users", {
         name: name,
         email: email,
       })
       console.log("회원가입 성공:", response.data);
       alert("회원가입이 완료되었습니다!");
     } catch (error) {
-      console.error
+      console.error(error)
     }
   }
 
