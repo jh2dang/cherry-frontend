@@ -1,12 +1,16 @@
 import { useState } from 'react';
 import { getAllUser } from '../../apis/userApi';
 import { useNavigate } from 'react-router-dom';
+import useUserStore from '../../store/useUserStore.js';
 
 function Login() {
   const navigate = useNavigate();
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [loginMessage, setLoginMessage] = useState('');
+
+  const { login } = useUserStore();
 
   // TODO: 로그인API 만들고 연동하기
   const handleLogin = async () => {
@@ -16,6 +20,7 @@ function Login() {
         (user) => user.name === name && user.email === email
       );
       if (userExists) {
+        login(name, email);
         alert('로그인 성공');
         navigate('/main');
       } else {
