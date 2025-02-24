@@ -16,11 +16,13 @@ function Login() {
   const handleLogin = async () => {
     try {
       const users = await getAllUser();
-      const userExists = users.some(
+
+      const foundUser = users.find(
         (user) => user.name === name && user.email === email
       );
-      if (userExists) {
-        login(name, email);
+
+      if (foundUser) {
+        login(foundUser.id, foundUser.name, foundUser.email);
         alert('로그인 성공');
         navigate('/main');
       } else {

@@ -8,8 +8,12 @@ const useUserStore = create(
         user: null,
         isLoggedIn: false,
 
-        login: (name, email) =>
-          set({ user: { name, email }, isLoggedIn: true }, false, 'user/login'),
+        login: (id, name, email) =>
+          set(
+            { user: { id, name, email }, isLoggedIn: true },
+            false,
+            'user/login'
+          ),
 
         logout: () =>
           set({ user: null, isLoggedIn: false }, false, 'user/logout'),
