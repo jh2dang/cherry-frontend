@@ -6,6 +6,9 @@ function TodoCard({ postId, title, description, onDelete }) {
   const [isChecked, setIsChecked] = useState(false);
   const [priority, setPriority] = useState('중간');
   const [text, setText] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
+  const [editTitle, setEditTitle] = useState('');
+  const [editText, setEditText] = useState('');
 
   // 마운트될 때 description 파싱 (한번만)
   useEffect(() => {
@@ -20,7 +23,14 @@ function TodoCard({ postId, title, description, onDelete }) {
         .replace(' [checked]', '')
         .trim()
     );
-  }, [description]);
+    setEditTitle(title);
+    setEditText(
+      description
+        .replace(/\[(높음|중간|낮음)\]/, '')
+        .replace(' [checked]', '')
+        .trim()
+    );
+  }, [description, title]);
 
   // API업데이트 (공통)
   const updatePostData = async (newChecked, newPriority) => {
@@ -60,6 +70,27 @@ function TodoCard({ postId, title, description, onDelete }) {
     }
   };
 
+  // 수정
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleQuit = () => {
+    setIsEditing(false);
+  };
+
+  const handleSave = async () => {
+    if (!editTitle.trim()) {
+      alert('제목을 입력하세요.');
+      return;
+    }
+
+    setIsEditing(false);
+    setText(editText);
+
+    await updatePostData(isChecked, priority, editTitle, editText);
+  };
+
   return (
     <div>
       <input type='checkbox' checked={isChecked} onChange={handleCheckbox} />
@@ -74,6 +105,22 @@ function TodoCard({ postId, title, description, onDelete }) {
       </select>
 
       <button onClick={handleDelete}>삭제</button>
+      <button onClick={handleEdit}>수정</button>
+      {isEditing && (
+        <>
+          <input
+            type='text'
+            value={editTitle}
+            onChange={(e) => setEditTitle(e.target.value)}
+          />
+          <textarea
+            value={editText}
+            onChange={(e) => setEditText(e.target.value)}
+          />
+          <button onClick={handleSave}>저장</button>
+          <button onClick={handleQuit}>취소</button>
+        </>
+      )}
       <hr />
     </div>
   );
