@@ -1,6 +1,6 @@
 import { defaultInstance } from './axios';
 
-export const getPosts = async (skip = 0, limit = 10) => {
+export const getPosts = async (skip = 0, limit = 1000) => {
   try {
     const response = await defaultInstance.get(
       `/posts?skip=${skip}&limit=${limit}`

@@ -3,7 +3,7 @@ import WelcomeBanner from '../blocks/WelcomeBanner';
 
 function Main() {
   return (
-    <div>
+    <div className='h-[800px] overflow-y-scroll'>
       <WelcomeBanner />
       <TodoBoard />
     </div>

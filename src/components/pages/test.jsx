@@ -41,7 +41,7 @@ function Test() {
 
   const getPost = async () => {
     try {
-      const response = await axios.get(baseURL + '/posts?skip=0&limit=10');
+      const response = await axios.get(baseURL + '/posts?skip=0&limit=1000');
       setPosts(response.data);
       console.log('글 목록 불러오기 성공:', response.data);
     } catch (error) {

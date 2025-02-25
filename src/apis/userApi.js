@@ -22,7 +22,7 @@ export const getUser = async (userId) => {
 
 export const getAllUser = async () => {
   try {
-    const response = await defaultInstance.get('/users?skip=0&limit=100');
+    const response = await defaultInstance.get('/users?skip=0&limit=1000');
     return response.data;
   } catch (error) {
     console.error(error);
