@@ -1,10 +1,16 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { getAllUser } from '../../apis/userApi';
 import { useNavigate } from 'react-router-dom';
 import useUserStore from '../../store/useUserStore.js';
+import { Label } from '../ui/label';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
+import Alert from '../blocks/Alert';
+import GoHome from '../blocks/GoHome';
 
 function Login() {
   const navigate = useNavigate();
+  const alertTriggerRef = useRef(null);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -23,7 +29,6 @@ function Login() {
 
       if (foundUser) {
         login(foundUser.id, foundUser.name, foundUser.email);
-        alert('로그인 성공');
         navigate('/main');
       } else {
         setLoginMessage(
@@ -36,21 +41,59 @@ function Login() {
     }
   };
 
+  const openAlert = () => {
+    if (alertTriggerRef.current) {
+      alertTriggerRef.current.click();
+    }
+  };
+
   return (
-    <div>
-      <h1>로그인</h1>
-      <input
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder='이름'
-      />
-      <input
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder='이메일'
-      />
-      <button onClick={handleLogin}>로그인</button>
-      {loginMessage && <p>{loginMessage}</p>}
+    <div className='h-full p-5 flex flex-col justify-center'>
+      <div className='flex flex-col gap-y-10'>
+        <div>
+          <div className='font-bold text-2xl'>Cherry 계정으로</div>
+          <div className='font-bold text-2xl'>로그인 해주세요.</div>
+        </div>
+        <div className='grid w-full max-w-sm items-center gap-1.5'>
+          <Label htmlFor='email'>name</Label>
+          <Input
+            type='email'
+            id='email'
+            placeholder='이름을 입력해 주세요.'
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div className='grid w-full max-w-sm items-center gap-1.5'>
+          <Label htmlFor='email'>email</Label>
+          <Input
+            type='email'
+            id='email'
+            placeholder='이메일을 입력해 주세요.'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className='flex flex-col gap-5'>
+          <Alert
+            title='준비중입니다.'
+            desc='불편을 드려 죄송합니다.'
+            ref={alertTriggerRef}
+          />
+          <Button
+            onClick={openAlert}
+            className='w-full border-gray-200 bg-gray-50 transition-all duration-200 ease-in-out hover:bg-gray-200 text-dark'
+            size='lg'
+          >
+            계정 찾기
+          </Button>
+          <Button onClick={handleLogin} variant='destructive' size='lg'>
+            Cherry 계정으로 로그인
+          </Button>
+        </div>
+        {loginMessage && <p className='text-sm text-red-400'>{loginMessage}</p>}
+        <GoHome />
+      </div>
     </div>
   );
 }

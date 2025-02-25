@@ -3,11 +3,10 @@ import Header from './Header';
 
 function Layout() {
   return (
-    <>
+    <div className='w-96 h-full d-flex justify-center p-5'>
       <Header />
-      <h1>Layout</h1>
       <Outlet />
-    </>
+    </div>
   );
 }
 
