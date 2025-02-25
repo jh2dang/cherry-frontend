@@ -1,8 +1,34 @@
-# React + Vite
+# 🍒 나만의 체크리스트: Cherry
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**할 일 목록을 관리하는 TO-DO 리스트 웹 애플리케이션**  
 
-Currently, two official plugins are available:
+## 🎯 **기능 소개**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 📝 **할 일 추가**: 제목과 설명을 입력하여 새로운 할 일을 등록할 수 있습니다.
+- ✅ **할 일 체크**: 완료된 항목을 체크하면 회색으로 처리되며 리스트의 하단으로 이동합니다.
+- 📌 **우선순위 설정**: `높음`, `중간`, `낮음` 우선순위를 설정하여 정렬할 수 있습니다.
+- 🔍 **검색 기능**: 할 일 목록에서 제목과 설명을 검색할 수 있습니다.
+- ✏️ **할 일 수정**: 기존 할 일의 제목을 수정할 수 있습니다.
+- ❌ **할 일 삭제**: 더 이상 필요하지 않은 항목을 삭제할 수 있습니다.
+
+## 🛠 **기술 스택**
+- **Frontend**: React, TailwindCSS, Zustand (상태 관리), Vite
+- **Backend**: FastAPI
+- **Database**: MySQL
+
+## 백엔드 API명세: http://3.27.168.60:8000/docs#/
+
+## 📌 **구동 방법**
+> 백엔드는 이미 배포되어 있으므로, 프론트엔드만 실행하면 됩니다.
+
+```
+1️⃣ 프로젝트 클론
+git clone https://github.com/your-repo/cherry-frontend.git
+cd cherry-frontend
+
+2️⃣ 패키지 설치
+npm install
+
+3️⃣ 개발 서버 실행
+npm run dev
+```
