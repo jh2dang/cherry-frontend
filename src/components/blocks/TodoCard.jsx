@@ -1,26 +1,50 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { updatePost, deletePost } from '../../apis/postApi';
 
-function TodoCard(props) {
-  const initialChecked = props.description.endsWith('[checked]');
-  const [isChecked, setIsChecked] = useState(initialChecked);
+function TodoCard({ postId, title, description, onDelete }) {
+  const [isChecked, setIsChecked] = useState(false);
+  const [priority, setPriority] = useState('중간');
+  const [text, setText] = useState('');
 
-  // 체크
+  // 마운트될 때 description 파싱 (한번만)
+  useEffect(() => {
+    const checked = description.includes('[checked]');
+    const pri = description.match(/\[(높음|중간|낮음)\]/);
+
+    setIsChecked(checked);
+    setPriority(pri ? pri[1] : '중간');
+    setText(
+      description
+        .replace(/\[(높음|중간|낮음)\]/, '')
+        .replace(' [checked]', '')
+        .trim()
+    );
+  }, [description]);
+
+  // API업데이트 (공통)
+  const updatePostData = async (newChecked, newPriority) => {
+    const newDesc = `[${newPriority}] ${text}${newChecked ? ' [checked]' : ''}`;
+
+    try {
+      await updatePost(postId, title, newDesc);
+    } catch (error) {
+      console.error('업데이트 실패:', error);
+    }
+  };
+
+  // 체크박스
   const handleCheckbox = async () => {
     const newChecked = !isChecked;
     setIsChecked(newChecked);
+    updatePostData(newChecked, priority);
+  };
 
-    let newDesc = props.description.replace(' [checked]', '');
-    if (newChecked) {
-      newDesc += ' [checked]';
-    }
-
-    try {
-      await updatePost(props.postId, props.title, newDesc);
-    } catch (error) {
-      console.error('체크 상태 업데이트 실패:', error);
-    }
+  // 우선순위
+  const handlePriority = async (event) => {
+    const newPriority = event.target.value;
+    setPriority(newPriority);
+    updatePostData(isChecked, newPriority);
   };
 
   // 삭제
@@ -29,10 +53,8 @@ function TodoCard(props) {
     if (!isConfirmed) return;
 
     try {
-      await deletePost(props.postId);
-      if (props.onDelete) {
-        props.onDelete(props.postId);
-      }
+      await deletePost(postId);
+      if (onDelete) onDelete(postId);
     } catch (error) {
       console.error('삭제 실패:', error);
     }
@@ -41,8 +63,16 @@ function TodoCard(props) {
   return (
     <div>
       <input type='checkbox' checked={isChecked} onChange={handleCheckbox} />
-      <h3>{props.title}</h3>
-      <p>{props.description.replace(' [checked]', '')}</p>
+      <h3>{title}</h3>
+      <p>{text}</p>
+
+      <label>우선순위: </label>
+      <select value={priority} onChange={handlePriority}>
+        <option value='높음'>높음</option>
+        <option value='중간'>중간</option>
+        <option value='낮음'>낮음</option>
+      </select>
+
       <button onClick={handleDelete}>삭제</button>
       <hr />
     </div>
@@ -50,12 +80,9 @@ function TodoCard(props) {
 }
 
 TodoCard.propTypes = {
-  id: PropTypes.number.isRequired,
+  postId: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
-  ownerId: PropTypes.number.isRequired,
-  postId: PropTypes.number.isRequired,
-  userId: PropTypes.number.isRequired,
   onDelete: PropTypes.func,
 };
 
