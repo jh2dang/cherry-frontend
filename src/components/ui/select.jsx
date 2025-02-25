@@ -3,6 +3,7 @@ import * as SelectPrimitive from '@radix-ui/react-select';
 import { Check, ChevronDown, ChevronUp } from 'lucide-react';
 
 import { cn } from '../../lib/utils';
+import PropTypes from 'prop-types';
 
 const Select = SelectPrimitive.Root;
 
@@ -131,6 +132,40 @@ const SelectSeparator = React.forwardRef(({ className, ...props }, ref) => (
   />
 ));
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
+
+// PropTypes for SelectTrigger
+SelectTrigger.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node, // React.ReactNode is used when expecting any valid React child
+};
+
+// PropTypes for SelectScrollUpButton and SelectScrollDownButton
+SelectScrollUpButton.propTypes = SelectScrollDownButton.propTypes = {
+  className: PropTypes.string,
+};
+
+// PropTypes for SelectContent
+SelectContent.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node,
+  position: PropTypes.oneOf(['popper', 'fixed', 'absolute']), // If you have predefined options for position
+};
+
+// PropTypes for SelectLabel
+SelectLabel.propTypes = {
+  className: PropTypes.string,
+};
+
+// PropTypes for SelectItem
+SelectItem.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node,
+};
+
+// PropTypes for SelectSeparator
+SelectSeparator.propTypes = {
+  className: PropTypes.string,
+};
 
 export {
   Select,

@@ -3,6 +3,7 @@ import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog';
 
 import { cn } from '../../lib/utils';
 import { buttonVariants } from './button';
+import PropTypes from 'prop-types';
 
 const AlertDialog = AlertDialogPrimitive.Root;
 
@@ -101,6 +102,38 @@ const AlertDialogCancel = React.forwardRef(({ className, ...props }, ref) => (
   />
 ));
 AlertDialogCancel.displayName = AlertDialogPrimitive.Cancel.displayName;
+
+AlertDialogOverlay.propTypes = {
+  className: PropTypes.string,
+};
+
+AlertDialogContent.propTypes = {
+  className: PropTypes.string,
+};
+
+AlertDialogHeader.propTypes = {
+  className: PropTypes.string,
+};
+
+AlertDialogFooter.propTypes = {
+  className: PropTypes.string,
+};
+
+AlertDialogTitle.propTypes = {
+  className: PropTypes.string,
+};
+
+AlertDialogDescription.propTypes = {
+  className: PropTypes.string,
+};
+
+AlertDialogAction.propTypes = {
+  className: PropTypes.string,
+};
+
+AlertDialogCancel.propTypes = {
+  className: PropTypes.string,
+};
 
 export {
   AlertDialog,

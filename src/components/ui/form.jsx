@@ -4,6 +4,7 @@ import { Controller, FormProvider, useFormContext } from 'react-hook-form';
 
 import { cn } from '@/lib/utils';
 import { Label } from '../../components/ui/label';
+import PropTypes from 'prop-types';
 
 const Form = FormProvider;
 
@@ -123,6 +124,37 @@ const FormMessage = React.forwardRef(
   }
 );
 FormMessage.displayName = 'FormMessage';
+
+// Add PropTypes to FormField
+FormField.propTypes = {
+  name: PropTypes.string.isRequired, // Assuming name is a required string
+};
+
+// Add PropTypes to FormItem
+FormItem.propTypes = {
+  className: PropTypes.string,
+};
+
+// Add PropTypes to FormLabel
+FormLabel.propTypes = {
+  className: PropTypes.string,
+};
+
+// Add PropTypes to FormControl
+FormControl.propTypes = {
+  className: PropTypes.string,
+};
+
+// Add PropTypes to FormDescription
+FormDescription.propTypes = {
+  className: PropTypes.string,
+};
+
+// Add PropTypes to FormMessage
+FormMessage.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node,
+};
 
 export {
   useFormField,
