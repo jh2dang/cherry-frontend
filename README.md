@@ -59,7 +59,7 @@ src/
 
 ```
 1️⃣ 프로젝트 클론
-git clone https://github.com/your-repo/cherry-frontend.git
+git clone https://github.com/jh2dang/cherry-frontend.git
 cd cherry-frontend
 
 2️⃣ 패키지 설치
