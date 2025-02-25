@@ -2,7 +2,11 @@
 # 🍒 나만의 ${\large{\color{#ef4444}체}}$크 ${\large{\color{#ef4444}리}}$스트: Cherry
 
 
-**할 일 목록을 관리하는 TO-DO 리스트 웹 애플리케이션**
+**[할 일 목록을 관리하는 TO-DO 리스트 웹 애플리케이션, Cherry 바로가기](http://jh2dev.site/)**
+<br/>
+```
+회원가입이 불편하신 분들은 테스트 계정을 사용해 주세요! 이름: test / 메일: test
+```
 <br/>
 <br/>
 <img src="https://github.com/user-attachments/assets/b490a156-9938-4fc9-8e77-b637e70bfd71"  width="200" height="400"/>
@@ -55,8 +59,9 @@ src/
 <br/>
 
 ## 📌 **구동 방법**
-> 백엔드는 이미 배포되어 있으므로, 프론트엔드만 실행하면 됩니다.
+> 프론트엔드와 백엔드는 이미 배포되어 있으므로, [여기](http://jh2dev.site/)에서 Cherry를 사용할 수 있습니다.
 
+> 로컬 환경에서의 구동 방법은 다음과 같습니다.
 ```
 1️⃣ 프로젝트 클론
 git clone https://github.com/jh2dang/cherry-frontend.git
